@@ -1,21 +1,15 @@
 import React, { useState, useEffect } from 'react';
 import Loader from '../components/Loader.component';
+import CardContainer from '../components/CardContainer.component';
 
 function HomePage() {
-    const [loading, setLoading] = useState(true);
+    const [loading, setLoading] = useState(false);
   
-    useEffect(() => {
-      // Simula una carga de datos
-      setTimeout(() => {
-        setLoading(false);
-      }, 2000);
-    }, []);
-  
-    if (loading) {
-      return <Loader />;
-    }
-  
-    return <h1>Home Page</h1>;
+    return(
+        <div className='home-page'>
+            {loading ? <Loader /> : <CardContainer />}
+        </div>
+    )
 }
 
 export default HomePage;
