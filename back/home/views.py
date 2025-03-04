@@ -5,7 +5,7 @@ from .models import Item
 @api_view(['GET'])
 def all_items(request):
     # Obtener todos los ítems y convertir a diccionarios
-    items = Item.objects.all().values('url', 'title')  # Especifica loss campos que se quieren obtener
+    items = Item.objects.all().values('id','url', 'title')  # Especifica loss campos que se quieren obtener
     
     # Convertir el QuerySet a una lista
     data = list(items)
