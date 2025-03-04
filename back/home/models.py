@@ -1,5 +1,6 @@
 from django.db import models
 from django.db.models.fields import CharField, TextField, URLField, IntegerField, BooleanField
+from django.contrib.postgres.fields import ArrayField
 
 # Create your models here.
 class Item(models.Model):
@@ -8,3 +9,7 @@ class Item(models.Model):
     url = URLField()
     current_chapter = IntegerField()
     on_going = BooleanField(default=True)
+    generos = ArrayField(
+        CharField(max_length=50),
+        default=list
+    )
