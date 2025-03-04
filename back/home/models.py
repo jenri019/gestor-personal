@@ -1,5 +1,5 @@
 from django.db import models
-from django.db.models.fields import CharField, TextField, URLField, IntegerField
+from django.db.models.fields import CharField, TextField, URLField, IntegerField, BooleanField
 
 # Create your models here.
 class Item(models.Model):
@@ -7,3 +7,4 @@ class Item(models.Model):
     description = TextField(max_length = 300, blank=True)
     url = URLField()
     current_chapter = IntegerField()
+    on_going = BooleanField(default=True)
