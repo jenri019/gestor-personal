@@ -1,10 +1,10 @@
 import { configureStore } from '@reduxjs/toolkit'
-import { counterSlice } from "./slices/counter/counterSlice";
 import { homeSlice } from './slices/home/homeSlice';
+import { genresSlice } from './slices/genres/genresSlice';
 
 export const store = configureStore({
   reducer: {
-    counter: counterSlice.reducer,
+    genres: genresSlice.reducer,
     home: homeSlice.reducer
   },
 })

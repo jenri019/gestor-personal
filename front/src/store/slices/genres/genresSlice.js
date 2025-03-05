@@ -2,18 +2,11 @@ import { createSlice } from '@reduxjs/toolkit'
 
 const initialState = {
     flag: true,
-    data: [],
-    currentPage: 1,
-    totalPages: 1,
-    filters: {
-        title__icontains: "",
-        generos: []
-    },
-    page_size: 10
-};
+    data: []
+}
 
-export const homeSlice = createSlice({
-    name: 'home',
+export const genresSlice = createSlice({
+    name: 'genres',
     initialState,
     reducers: {
         setProps: (state, action) => {
@@ -29,4 +22,4 @@ export const homeSlice = createSlice({
 })
 
 // Action creators are generated for each case reducer function
-export const { setProps, reset } = homeSlice.actions;
+export const { setProps, reset } = genresSlice.actions;

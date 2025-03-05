@@ -28,18 +28,29 @@ const CardContainer = ({ items }) => {
                 <h2>Contenido del Popup</h2>
                 <p>Este es el contenido del popup.</p>
             </Popup>
-            <div className='card-container'>
-                {items.map(({ id, title, current_chapter, description, generos, url }) => (
-                    <Card
-                        key={id}
-                        title={title}
-                        description={description}
-                        generos={generos}
-                        current_chapter={current_chapter}
-                        onButtonClick={() => handleButtonClick(url)}
-                    />
-                ))}
-            </div>
+
+            {
+                items.length === 0
+                    ? (
+                        <div className='card-container'>
+                            <h2>No hay datos</h2>
+                        </div>
+                    )
+                    : (
+                        <div className='card-container'>
+                            {items.map(({ id, title, current_chapter, description, generos, url }) => (
+                                <Card
+                                    key={id}
+                                    title={title}
+                                    description={description}
+                                    generos={generos}
+                                    current_chapter={current_chapter}
+                                    onButtonClick={() => handleButtonClick(url)}
+                                />
+                            ))}
+                        </div>
+                    )
+            }
         </>
     )
 }
