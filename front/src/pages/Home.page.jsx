@@ -7,18 +7,17 @@ function HomePage() {
     const [loading, setLoading] = useState(true);
     const [data, setData] = useState([]);
 
+    const getData = async () => {
+        try {
+            const result = await dataService.getAll();
+            setData(result);
+        } catch (error) {
+            console.error(error);
+        } finally {
+            setLoading(false);
+        }
+    };
     useEffect(() => {
-        const getData = async () => {
-            try {
-                const result = await dataService.getAll();
-                setData(result);
-            } catch (error) {
-                console.error(error);
-            } finally {
-                setLoading(false);
-            }
-        };
-
         getData();
     }, []);
 
