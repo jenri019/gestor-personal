@@ -58,8 +58,8 @@ def all_items(request):
 
 
 
-""" @api_view(['GET'])
-def all_items(request):
+@api_view(['GET'])
+def all_genres(request):
     # Obtener todos los ítems y convertir a diccionarios
     items = Item.objects.all().values()
     
@@ -67,4 +67,4 @@ def all_items(request):
     data = list(items)
     
     # Devolver la lista como respuesta JSON
-    return Response(data) """
+    return Response(data)
