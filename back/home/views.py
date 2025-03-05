@@ -2,7 +2,7 @@ from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from rest_framework import status
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
-from .models import Item
+from .models import Item, Genero
 
 @api_view(['POST'])
 def all_items(request):
@@ -13,7 +13,7 @@ def all_items(request):
         page_size = request.data.get('page_size', 10)
 
         # Separar los filtros especiales (como 'generos') de los filtros normales
-        generos_filtro = filters.pop('generos', [])  # Extrae y elimina 'generos' de filters
+        generos_filtro = [genero.lower() for genero in filters.pop('generos', [])]
 
         # Filtrar los ítems basados en los filtros normales
         items = Item.objects.all().filter(**filters)
@@ -22,8 +22,8 @@ def all_items(request):
         if generos_filtro:
             matching_items = []
             for item in items:
-                # Convertir el campo `generos` del ítem en una lista
-                generos_item = [g.strip() for g in item.generos.split(",")]
+                # Convertir el campo `generos` del ítem en una lista y a minúsculas
+                generos_item = [g.strip().lower() for g in item.generos.split(",")]
                 # Verificar si hay intersección entre los géneros del ítem y los del filtro
                 if any(genero in generos_item for genero in generos_filtro):
                     matching_items.append(item)
@@ -61,10 +61,10 @@ def all_items(request):
 @api_view(['GET'])
 def all_genres(request):
     # Obtener todos los ítems y convertir a diccionarios
-    items = Item.objects.all().values()
+    genres = Genero.objects.all().values()
     
     # Convertir el QuerySet a una lista
-    data = list(items)
+    data = list(genres)
     
     # Devolver la lista como respuesta JSON
     return Response(data)
