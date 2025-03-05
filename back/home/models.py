@@ -5,6 +5,7 @@ from django.db.models.fields import CharField, TextField, URLField, IntegerField
 class Item(models.Model):
     id = AutoField(primary_key=True)
     title = CharField(max_length=100)
+    tipo = CharField(max_length=6, default="")
     description = TextField(max_length = 300, blank=True)
     url = URLField()
     current_chapter = IntegerField()
