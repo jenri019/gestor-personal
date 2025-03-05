@@ -49,8 +49,7 @@ def all_items(request):
         return Response({
             'data': data,
             'page': paginated_items.number,
-            'total_pages': paginator.num_pages,
-            'total_items': paginator.count
+            'total_pages': paginator.num_pages
         }, status=status.HTTP_200_OK)
 
     except Exception as e:
