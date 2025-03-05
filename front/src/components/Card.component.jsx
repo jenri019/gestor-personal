@@ -1,14 +1,16 @@
 import React from 'react'
 import Description from './Description.component'
+import Genres from './Genres.component'
 
-const Card = ({title, description}) => {
+const Card = ({title, description, generos}) => {
   return (
     <div className='card'>
         <h1 className="title">
             {title}
         </h1>
         <Description description={description} />
-        <button type="button">Ir a cap</button>
+        <Genres generos={generos} />
+        <button type="button" className='btn btn-submit'>Ir a cap</button>
     </div>
   )
 }

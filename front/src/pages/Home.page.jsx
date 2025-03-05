@@ -24,7 +24,7 @@ function HomePage() {
 
     return (
         <div className='home-page'>
-            {loading ? <Loader /> : <CardContainer items={data} />}
+            {loading ? <Loader /> : <CardContainer items={data.data} />}
         </div>
     );
 }

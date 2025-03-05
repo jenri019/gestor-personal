@@ -21,8 +21,6 @@
   width: 50%;
   min-width: 250px;
   max-width: 350px;
-
-  height: 400px;
   display: flex;
   flex-direction: column;
 }
@@ -35,9 +33,30 @@
 
 .description {
   font-size: 1rem;
-  margin-bottom: 1rem;
   overflow-y: auto;
   display: flex;
   flex-direction: column;
   flex: 1;
+}
+
+.badge-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  flex-wrap: wrap;
+  align-items: center;
+  margin: 1rem 0;
+}
+
+.badge {
+  padding: 4px 1rem;
+  background-color: #6274d8;
+  color: white;
+  border-radius: 4px;
+  margin-right: 2px;
+  margin-top: 2px;
+}
+
+.btn {
+  padding: 0.5rem 1rem;
 }
