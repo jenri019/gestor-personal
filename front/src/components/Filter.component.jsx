@@ -28,9 +28,12 @@ const Filter = ({ allowMultiple = true }) => {
             newSelectedGenres = selectedGenres.includes(genre) ? [] : [genre];
         }
         setSelectedGenres(newSelectedGenres);
-        const newFilters = { ...filters, generos: newSelectedGenres };
-        dispatch(HomeActions.setProps({ filters: newFilters, flag: true }));
     };
+
+    const onApply = () => {
+        dispatch(HomeActions.setProps({ filters: { ...filters, generos: selectedGenres }, flag: true }));
+        setIsDropdownOpen(false);
+    }
 
     const handleClickOutside = (event) => {
         if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
@@ -39,6 +42,7 @@ const Filter = ({ allowMultiple = true }) => {
     };
 
     useEffect(() => {
+        setSelectedGenres(filters.generos || []);
         document.addEventListener('mousedown', handleClickOutside);
         return () => {
             document.removeEventListener('mousedown', handleClickOutside);
@@ -49,6 +53,7 @@ const Filter = ({ allowMultiple = true }) => {
         if (!str) return '';
         return str.charAt(0).toUpperCase() + str.slice(1).toLowerCase();
     };
+
     return (
         <div className="filter" ref={dropdownRef}>
             <div className="selected-genres" onClick={toggleDropdown}>
@@ -62,15 +67,20 @@ const Filter = ({ allowMultiple = true }) => {
             </div>
             {isDropdownOpen && (
                 <div className="dropdown">
-                    {data.map((item) => (
-                        <div
-                            key={item.id}
-                            className={`dropdown-item ${selectedGenres.includes(item.title) ? 'selected' : ''}`}
-                            onClick={() => onSelectGenre(item.title)}
-                        >
-                            {capitalize(item.title)}
-                        </div>
-                    ))}
+                    <div className='btn-filter-container'>
+                        <button type="button" className='btn btn-primary btn-filter' onClick={ onApply }>Aplicar</button>
+                    </div>
+                    <div className="dropdown-item-container"> 
+                        {data.map((item) => (
+                            <div
+                                key={item.id}
+                                className={`dropdown-item ${selectedGenres.includes(item.title) ? 'selected' : ''}`}
+                                onClick={() => onSelectGenre(item.title)}
+                            >
+                                {capitalize(item.title)}
+                            </div>
+                        ))}
+                    </div>
                 </div>
             )}
         </div>
