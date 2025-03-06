@@ -2,6 +2,15 @@
   padding: 1rem;
 }
 
+.home-page-header {
+  display: flex;
+  margin-bottom: 1rem;
+}
+
+.home-page-header #btn-add {
+  margin-left: 1rem;
+}
+
 .header {
   display: flex;
   flex-direction: row;

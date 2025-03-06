@@ -1,7 +1,7 @@
 .filter {
     position: relative;
     display: inline-block;
-    width: 200px;
+    width: 300px;
 }
 
 .selected-genres {
@@ -26,13 +26,18 @@
     top: 100%;
     left: 0;
     right: 0;
-    border: 1px solid #ccc;
+    border: 1px solid #919090;
     background: white;
     z-index: 1000;
-    max-height: 200px;
-    overflow-y: auto;
+    height: 200px;
+    display: flex;
+    flex-direction: column;
 }
 
+.dropdown-item-container {
+    overflow-y: auto;
+    flex: 1;
+}
 .dropdown-item {
     padding: 10px;
     cursor: pointer;
@@ -42,4 +47,12 @@
 .dropdown-item.selected {
     background: #007bff;
     color: white;
+}
+
+.btn-filter-container {
+    padding: 10px;
+}
+
+.btn-filter {
+    width: 100%;
 }
