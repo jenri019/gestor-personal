@@ -9,10 +9,13 @@ import * as GenresActions from '../store/slices/genres/genresSlice';
 import dataService from '../services/data.service';
 import genresService from '../services/genres.service';
 import Filter from '../components/Filter.component';
+import Popup from '../components/Popup.component';
 
 function HomePage() {
     const [loadingHome, setLoadingHome] = useState(true);
     const [loadingGenres, setLoadingGenres] = useState(true);
+    const [showPopup, setShowPopup] = useState(false);
+
     const dispatch = useDispatch();
 
     const { flag: flagHome, data: dataHome = [], filters, currentPage, page_size } = useSelector((state) => state.home);
@@ -38,6 +41,14 @@ function HomePage() {
             dispatch(GenresActions.setProps({ flag: false }));
         }
     };
+    
+    const handleShowPopup = () => {
+        setShowPopup(true);
+    };
+
+    const handleClosePopup = () => {
+        setShowPopup(false);
+    };
 
     useEffect(() => {
         if (flagHome) getDataHome();
@@ -53,7 +64,14 @@ function HomePage() {
 
     return (
         <div className='home-page'>
-            <Filter />
+            <div className='home-page-header'>
+                <Filter />
+                <button id='btn-add' onClick={handleShowPopup}>Agregar</button>
+                <Popup show={showPopup} onClose={handleClosePopup}>
+                    <h2>Contenido del Popup</h2>
+                    <p>Este es el contenido del popup.</p>
+                </Popup>
+            </div>
             {loadingHome || loadingGenres ? <Loader /> : <CardContainer items={dataHome} />}
         </div>
     );
