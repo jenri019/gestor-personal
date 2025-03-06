@@ -24,10 +24,22 @@ const renderEditContent = () => (
                 Nombre:
             </label>
             <input type="text" name="name" defaultValue="" />
+
             <label>
-                Nombre:
+                Descripcion:
             </label>
             <input type="text" name="name" defaultValue="" />
+            
+            <label>
+                URL:
+            </label>
+            <input type="text" name="name" defaultValue="" />
+            
+            <label>
+                URL:
+            </label>
+            <input type="text" name="name" defaultValue="" />
+
             <button type="submit">Guardar</button>
         </form>
     </div>

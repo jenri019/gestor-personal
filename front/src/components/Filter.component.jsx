@@ -1,33 +1,80 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import * as HomeActions from '../store/slices/home/homeSlice';
+import '../styles/Filter.css';
 
-const Filter = () => {
-    const [genre, setGenre] = useState('');
+const Filter = ({ allowMultiple = true }) => {
+    const [selectedGenres, setSelectedGenres] = useState([]);
+    const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+    const dropdownRef = useRef(null);
 
     const { data = [] } = useSelector((state) => state.genres);
     const { filters } = useSelector((state) => state.home);
     const dispatch = useDispatch();
 
-    const onSelectGenre = (genre) => {
-        setGenre(genre);
-        const newFilters = { ...filters, generos: [genre] };
-        dispatch(HomeActions.setProps({ filters: newFilters, flag: true }));
-    }
+    const toggleDropdown = () => {
+        setIsDropdownOpen(!isDropdownOpen);
+    };
 
+    const onSelectGenre = (genre) => {
+        let newSelectedGenres;
+        if (allowMultiple) {
+            if (selectedGenres.includes(genre)) {
+                newSelectedGenres = selectedGenres.filter(g => g !== genre);
+            } else {
+                newSelectedGenres = [...selectedGenres, genre];
+            }
+        } else {
+            newSelectedGenres = selectedGenres.includes(genre) ? [] : [genre];
+        }
+        setSelectedGenres(newSelectedGenres);
+        const newFilters = { ...filters, generos: newSelectedGenres };
+        dispatch(HomeActions.setProps({ filters: newFilters, flag: true }));
+    };
+
+    const handleClickOutside = (event) => {
+        if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+            setIsDropdownOpen(false);
+        }
+    };
+
+    useEffect(() => {
+        document.addEventListener('mousedown', handleClickOutside);
+        return () => {
+            document.removeEventListener('mousedown', handleClickOutside);
+        };
+    }, []);
+
+    const capitalize = (str) => {
+        if (!str) return '';
+        return str.charAt(0).toUpperCase() + str.slice(1).toLowerCase();
+    };
     return (
-        <div>
-            <select name="" id="" value={genre} onChange={(e) => onSelectGenre(e.target.value)}>
-            <   option value={''}>Todos</option>
-                {
-                    data.map((item) => (
-                        <option key={item.id} value={item.title}>{item.title}</option>
-                    ))
-                }
-            </select>
-            <pre>{'El genero es '+genre}</pre>
+        <div className="filter" ref={dropdownRef}>
+            <div className="selected-genres" onClick={toggleDropdown}>
+                {selectedGenres.length > 0 ? (
+                    <div className="selected-genres-text">
+                        {capitalize(selectedGenres.join(', '))}
+                    </div>
+                ) : (
+                    'Selecciona géneros'
+                )}
+            </div>
+            {isDropdownOpen && (
+                <div className="dropdown">
+                    {data.map((item) => (
+                        <div
+                            key={item.id}
+                            className={`dropdown-item ${selectedGenres.includes(item.title) ? 'selected' : ''}`}
+                            onClick={() => onSelectGenre(item.title)}
+                        >
+                            {capitalize(item.title)}
+                        </div>
+                    ))}
+                </div>
+            )}
         </div>
-    )
-}
+    );
+};
 
 export default Filter
