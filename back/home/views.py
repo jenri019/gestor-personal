@@ -24,8 +24,8 @@ def all_items(request):
             for item in items:
                 # Convertir el campo `generos` del ítem en una lista y a minúsculas
                 generos_item = [g.strip().lower() for g in item.generos.split(",")]
-                # Verificar si hay intersección entre los géneros del ítem y los del filtro
-                if any(genero in generos_item for genero in generos_filtro):
+                # Verificar si TODOS los géneros del filtro están en los géneros del ítem
+                if all(genero in generos_item for genero in generos_filtro):
                     matching_items.append(item)
             # Convertir la lista de ítems en un QuerySet
             items = Item.objects.filter(id__in=[item.id for item in matching_items])
