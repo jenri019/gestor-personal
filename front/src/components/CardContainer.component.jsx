@@ -1,34 +1,18 @@
-import React, { useState } from 'react'
+import React from 'react'
 import Card from './card.component'
-import Popup from './Popup.component';
 
 const handleButtonClick = (url) => {
     window.open(url, '_blank');
 }
 
 const CardContainer = ({ items }) => {
-    const [showPopup, setShowPopup] = useState(false);
 
     const handleButtonClick = (url) => {
         window.open(url, '_blank');
     };
 
-    const handleShowPopup = () => {
-        setShowPopup(true);
-    };
-
-    const handleClosePopup = () => {
-        setShowPopup(false);
-    };
-
     return (
         <>
-            <button onClick={handleShowPopup}>Agregar</button>
-            <Popup show={showPopup} onClose={handleClosePopup}>
-                <h2>Contenido del Popup</h2>
-                <p>Este es el contenido del popup.</p>
-            </Popup>
-
             {
                 items.length === 0
                     ? (
